@@ -1,4 +1,4 @@
-package com.example.roots.roots_delight.recipe;
+package com.roots.roots_delight.recipe;
 
 import com.google.gson.JsonObject;
 import net.minecraft.core.NonNullList;

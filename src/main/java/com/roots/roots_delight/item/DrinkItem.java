@@ -1,4 +1,4 @@
-package com.example.roots.roots_delight.item;
+package com.roots.roots_delight.item;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

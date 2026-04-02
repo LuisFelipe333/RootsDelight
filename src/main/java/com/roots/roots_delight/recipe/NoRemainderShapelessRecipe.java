@@ -1,4 +1,4 @@
-package com.example.roots.roots_delight.recipe;
+package com.roots.roots_delight.recipe;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;

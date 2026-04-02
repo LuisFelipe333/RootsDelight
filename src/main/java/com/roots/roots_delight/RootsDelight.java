@@ -1,7 +1,10 @@
 package com.roots.roots_delight;
 
-import com.example.roots.roots_delight.item.DrinkItem;
-import com.example.roots.roots_delight.recipe.NoRemainderShapelessSerializer;
+import com.roots.roots_delight.item.DrinkItem;
+import com.roots.roots_delight.item.PozolCacaoItem;
+import com.roots.roots_delight.item.PozolBlancoItem;
+import com.roots.roots_delight.recipe.NoRemainderShapelessSerializer;
+import com.roots.roots_delight.config.PozolConfig;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -32,6 +35,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
 
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -105,117 +110,133 @@ public class RootsDelight
 
 
 
-    //========== EFECTOS COMIDA ==========
-    private static final FoodProperties POZOL_BLANCO_FOOD = new FoodProperties.Builder()
-            .nutrition(5)               // 5 muslitos
-            .saturationMod(0.6f)
-            // 60 segundos = 60 * 20 ticks = 1200
+//    //========== EFECTOS COMIDA ==========
+//    private static final FoodProperties POZOL_BLANCO_FOOD = new FoodProperties.Builder()
+//            .nutrition(5)               // 5 muslitos
+//            .saturationMod(0.6f)
+//            // 60 segundos = 60 * 20 ticks = 1200
+//
+//            // Visión nocturna 20%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.NIGHT_VISION, 1200, 0),
+//                    0.20f
+//            )
+//            // Salto I 20%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.JUMP, 1200, 0),
+//                    0.20f
+//            )
+//            // Resistencia al fuego 20%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1200, 0),
+//                    0.20f
+//            )
+//            // Velocidad I 20%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 0),
+//                    0.20f
+//            )
+//            // Curación instantánea I 20% (duración cortita, es instantánea de todos modos)
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.HEAL, 1, 0),
+//                    0.20f
+//            )
+//            // Regeneración I 20%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.REGENERATION, 1200, 0),
+//                    0.20f
+//            )
+//            // Fuerza I 20%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 0),
+//                    0.20f
+//            )
+//            // Prisa minera I 20%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.DIG_SPEED, 1200, 0),
+//                    0.20f
+//            )
+//            .alwaysEat()
+//
+//            .build();
 
-            // Visión nocturna 20%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.NIGHT_VISION, 1200, 0),
-                    0.20f
-            )
-            // Salto I 20%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.JUMP, 1200, 0),
-                    0.20f
-            )
-            // Resistencia al fuego 20%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1200, 0),
-                    0.20f
-            )
-            // Velocidad I 20%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 0),
-                    0.20f
-            )
-            // Curación instantánea I 20% (duración cortita, es instantánea de todos modos)
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.HEAL, 1, 0),
-                    0.20f
-            )
-            // Regeneración I 20%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.REGENERATION, 1200, 0),
-                    0.20f
-            )
-            // Fuerza I 20%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 0),
-                    0.20f
-            )
-            // Prisa minera I 20%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.DIG_SPEED, 1200, 0),
-                    0.20f
-            )
-            .alwaysEat()
-
-            .build();
-
-
-    // Pozol de cacao: 5 de comida, 1 minuto, efectos en nivel II con 15% cada uno
-    private static final FoodProperties POZOL_CACAO_FOOD = new FoodProperties.Builder()
+    public static final FoodProperties POZOL_BLANCO_FOOD = new FoodProperties.Builder()
             .nutrition(5)
             .saturationMod(0.6f)
-
-            // Salto II 15%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.JUMP, 1200, 1),
-                    0.15f
-            )
-            // Resistencia al fuego 15%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1200, 0),
-                    0.15f
-            )
-            // Velocidad II 15%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 1),
-                    0.15f
-            )
-            // Curación instantánea II 15%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.HEAL, 1, 1),
-                    0.15f
-            )
-            // Regeneración II 15%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.REGENERATION, 1200, 1),
-                    0.15f
-            )
-            // Fuerza II 15%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 1),
-                    0.15f
-            )
-            // Caída lenta 15%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.SLOW_FALLING, 1200, 0),
-                    0.15f
-            )
-            // Prisa minera II 15%
-            .effect(
-                    () -> new MobEffectInstance(MobEffects.DIG_SPEED, 1200, 1),
-                    0.15f
-            )
             .alwaysEat()
             .build();
+
+    public static final FoodProperties POZOL_CACAO_FOOD = new FoodProperties.Builder()
+            .nutrition(5)
+            .saturationMod(0.6f)
+            .alwaysEat()
+            .build();
+
+
+//    // Pozol de cacao: 5 de comida, 1 minuto, efectos en nivel II con 15% cada uno
+//    private static final FoodProperties POZOL_CACAO_FOOD = new FoodProperties.Builder()
+//            .nutrition(5)
+//            .saturationMod(0.6f)
+//
+//            // Salto II 15%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.JUMP, 1200, 1),
+//                    0.15f
+//            )
+//            // Resistencia al fuego 15%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1200, 0),
+//                    0.15f
+//            )
+//            // Velocidad II 15%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 1),
+//                    0.15f
+//            )
+//            // Curación instantánea II 15%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.HEAL, 1, 1),
+//                    0.15f
+//            )
+//            // Regeneración II 15%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.REGENERATION, 1200, 1),
+//                    0.15f
+//            )
+//            // Fuerza II 15%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 1),
+//                    0.15f
+//            )
+//            // Caída lenta 15%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.SLOW_FALLING, 1200, 0),
+//                    0.15f
+//            )
+//            // Prisa minera II 15%
+//            .effect(
+//                    () -> new MobEffectInstance(MobEffects.DIG_SPEED, 1200, 1),
+//                    0.15f
+//            )
+//            .alwaysEat()
+//            .build();
 
 
     // ========== COMIDAS ==========
 
     public static final RegistryObject<Item> POZOL_BLANCO = ITEMS.register(
             "pozol_blanco",
-            () -> new DrinkItem(new Item.Properties().food(POZOL_BLANCO_FOOD))
+            () -> new PozolBlancoItem(new Item.Properties().food(POZOL_BLANCO_FOOD))
     );
 
-    public static final RegistryObject<Item> POZOL_CACAO = ITEMS.register(
-            "pozol_cacao",
-            () -> new DrinkItem(new Item.Properties().food(POZOL_CACAO_FOOD))
-    );
+
+    public static final RegistryObject<Item> POZOL_CACAO = ITEMS.register("pozol_cacao",
+            () -> new PozolCacaoItem(new Item.Properties().food(POZOL_CACAO_FOOD)));
+
+//    public static final RegistryObject<Item> POZOL_CACAO = ITEMS.register(
+//            "pozol_cacao",
+//            () -> new DrinkItem(new Item.Properties().food(POZOL_CACAO_FOOD))
+//    );
 
     //Cheve
     public static final RegistryObject<Item> CHEVE = ITEMS.register(
@@ -275,8 +296,11 @@ public class RootsDelight
     {
         IEventBus modEventBus = context.getModEventBus();
 
+        context.registerConfig(ModConfig.Type.COMMON, com.roots.roots_delight.config.PozolConfig.SPEC, "roots_delight-common.toml");
+
+
         // Register the commonSetup method for modloading
-        modEventBus.addListener(this::commonSetup);
+//        modEventBus.addListener(this::commonSetup);
 
         // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
@@ -295,7 +319,13 @@ public class RootsDelight
         //modEventBus.addListener(this::addCreative);
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
-        context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+//        context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+//        ModLoadingContext.get().registerConfig(
+//                ModConfig.Type.COMMON,
+//                RootsDelightConfig.COMMON_SPEC
+//        );
+
     }
 
     @SubscribeEvent
@@ -318,38 +348,9 @@ public class RootsDelight
         }
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event)
-    {
-        // Some common setup code
-        LOGGER.info("HELLO FROM COMMON SETUP");
-
-        if (Config.logDirtBlock)
-            LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
-
-        LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
-
-        Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
-    }
 
 
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event)
-    {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
-    }
 
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents
-    {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
-            // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
-        }
-    }
+
+
 }
