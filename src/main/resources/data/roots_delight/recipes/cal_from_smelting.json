@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": { "item": "minecraft:calcite" },
+  "result": "roots_delight:cal",
+  "experience": 0.20,
+  "cookingtime": 200
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "roots_delight:masa_pozol_cacao" },
+    { "item": "minecraft:bowl" },
+    { "item": "minecraft:sugar" }
+  ],
+  "result": {
+    "item": "roots_delight:roots_cacao",
+    "count": 1
+  }
+}

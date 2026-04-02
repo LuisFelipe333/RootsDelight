@@ -1,0 +1,12 @@
+{
+  "type": "roots_delight:no_remainder_shapeless",
+  "ingredients": [
+    { "item": "roots_delight:cal" },
+    { "item": "minecraft:water_bucket" },
+    { "item": "corn_delight:corn_seeds" }
+  ],
+  "result": {
+    "item": "roots_delight:cubeta_maiz_cal",
+    "count": 1
+  }
+}

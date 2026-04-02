@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": { "item": "roots_delight:cubeta_maiz_cal" },
+  "result": "roots_delight:nixtamal",
+  "experience": 0.25,
+  "cookingtime": 200
+}

@@ -1,0 +1,74 @@
+# =========================
+# Eclipse
+# =========================
+bin/
+*.launch
+.settings/
+.metadata/
+.classpath
+.project
+
+# =========================
+# IntelliJ IDEA
+# =========================
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# =========================
+# VS Code
+# =========================
+.vscode/
+
+# =========================
+# Gradle
+# =========================
+.gradle/
+build/
+
+# IMPORTANTE: sí subir wrapper
+!gradle/wrapper/gradle-wrapper.jar
+
+# =========================
+# Carpeta de ejecución (Forge/Fabric)
+# =========================
+run/
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+crash-reports/
+
+# =========================
+# Archivos compilados
+# =========================
+*.class
+*.jar
+*.war
+*.ear
+
+# =========================
+# Sistema
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Configuración local
+# =========================
+local.properties
+
+# =========================
+# Forge MDK
+# =========================
+forge*changelog.txt
+
+# =========================
+# Otros temporales
+# =========================
+tmp/
+bin/

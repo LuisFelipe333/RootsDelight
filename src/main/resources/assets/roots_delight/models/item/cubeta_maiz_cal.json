@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "roots_delight:item/cubeta_maiz_cal"
+  }
+}
+}

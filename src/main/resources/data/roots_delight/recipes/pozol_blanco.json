@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "roots_delight:masa_pozol_blanco" },
+    { "item": "minecraft:bowl" },
+    { "item": "minecraft:sugar" }
+  ],
+  "result": {
+    "item": "roots_delight:roots_blanco",
+    "count": 1
+  }
+}

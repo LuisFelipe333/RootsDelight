@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": { "item": "minecraft:cocoa_beans" },
+  "result": "roots_delight:cacao_tostado",
+  "experience": 0.15,
+  "cookingtime": 200
+}
