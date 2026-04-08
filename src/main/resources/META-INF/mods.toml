@@ -73,9 +73,9 @@ description='''${mod_description}'''
 #openGLVersion="[3.2,)"
 
 
-[[dependencies.roots_delight]]
-modId="corn_delight"
-   mandatory=true
-   versionRange="[1.1.9,)"
-    ordering="AFTER"
-   side="BOTH"
+#[[dependencies.roots_delight]]
+#modId="corn_delight"
+#mandatory=true
+#   versionRange="[1.1.9,)"
+#    ordering="AFTER"
+#   side="BOTH"
