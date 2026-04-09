@@ -233,10 +233,6 @@ public class RootsDelight
     public static final RegistryObject<Item> POZOL_CACAO = ITEMS.register("pozol_cacao",
             () -> new PozolCacaoItem(new Item.Properties().food(POZOL_CACAO_FOOD)));
 
-//    public static final RegistryObject<Item> POZOL_CACAO = ITEMS.register(
-//            "pozol_cacao",
-//            () -> new DrinkItem(new Item.Properties().food(POZOL_CACAO_FOOD))
-//    );
 
     //Cheve
     public static final RegistryObject<Item> CHEVE = ITEMS.register(
