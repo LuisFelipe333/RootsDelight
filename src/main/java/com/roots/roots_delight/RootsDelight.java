@@ -1,5 +1,6 @@
 package com.roots.roots_delight;
 
+import com.roots.roots_delight.block.CocolmecaBlock;
 import com.roots.roots_delight.item.DrinkItem;
 import com.roots.roots_delight.item.PozolCacaoItem;
 import com.roots.roots_delight.item.PozolBlancoItem;
@@ -13,13 +14,11 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -54,6 +53,17 @@ public class RootsDelight
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "roots_delight" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
+
+    // 1. Registro del Bloque (El cultivo)
+    // Copiamos las propiedades de las papas de Minecraft (Blocks.POTATOES)
+        public static final RegistryObject<Block> COCOLMECA_CROP = BLOCKS.register("cocolmeca_crop",
+                () -> new CocolmecaBlock(BlockBehaviour.Properties.copy(Blocks.POTATOES)));
+
+        // 2. Registro del Ítem (La raíz)
+    // Usamos ItemNameBlockItem para que al usarse en tierra arada coloque el bloque de arriba
+    // Al no poner .food(), el objeto NO se podrá comer.
+        public static final RegistryObject<Item> RAIZ_COCOLMECA = ITEMS.register("raiz_cocolmeca",
+                () -> new ItemNameBlockItem(COCOLMECA_CROP.get(), new Item.Properties()));
 
 
     // ========== ÍTEMS BÁSICOS ==========
