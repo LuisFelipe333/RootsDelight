@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "age=0": { "model": "roots_delight:block/cocolmeca_stage0" },
+    "age=1": { "model": "roots_delight:block/cocolmeca_stage0" },
+    "age=2": { "model": "roots_delight:block/cocolmeca_stage1" },
+    "age=3": { "model": "roots_delight:block/cocolmeca_stage1" },
+    "age=4": { "model": "roots_delight:block/cocolmeca_stage2" },
+    "age=5": { "model": "roots_delight:block/cocolmeca_stage2" },
+    "age=6": { "model": "roots_delight:block/cocolmeca_stage3" },
+    "age=7": { "model": "roots_delight:block/cocolmeca_stage3" }
+  }
+}

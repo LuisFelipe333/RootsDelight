@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "roots_delight:block/cocolmeca_stage1"
+  }
+}
