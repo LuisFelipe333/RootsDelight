@@ -8,6 +8,8 @@ import com.roots.roots_delight.recipe.NoRemainderShapelessSerializer;
 import com.roots.roots_delight.config.PozolConfig;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -53,6 +55,14 @@ public class RootsDelight
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "roots_delight" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
+
+    //Metodo para quitar fondo
+    private void clientSetup(final FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            // Esto le quita el fondo negro al bloque de cultivo
+            ItemBlockRenderTypes.setRenderLayer(COCOLMECA_CROP.get(), RenderType.cutout());
+        });
+    }
 
     // 1. Registro del Bloque (El cultivo)
     // Copiamos las propiedades de las papas de Minecraft (Blocks.POTATOES)
@@ -306,7 +316,7 @@ public class RootsDelight
 
 
         // Register the commonSetup method for modloading
-//        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::clientSetup);
 
         // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
