@@ -7,6 +7,7 @@ import com.roots.roots_delight.item.PozolBlancoItem;
 import com.roots.roots_delight.recipe.NoRemainderShapelessSerializer;
 import com.roots.roots_delight.config.PozolConfig;
 import com.mojang.logging.LogUtils;
+import com.roots.roots_delight.util.BetterBrewingRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -17,12 +18,16 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -55,12 +60,25 @@ public class RootsDelight
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "roots_delight" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
+    public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, MODID);
 
     //Metodo para quitar fondo
     private void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             // Esto le quita el fondo negro al bloque de cultivo
             ItemBlockRenderTypes.setRenderLayer(COCOLMECA_CROP.get(), RenderType.cutout());
+        });
+    }
+
+    //Metodo para agregar receta pociones
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            // Registro de la receta: Botella de Agua + Cocolmeca = Agua de Cocolmeca
+            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(
+                    Potions.WATER,
+                    RAIZ_COCOLMECA.get(),
+                    PotionUtils.setPotion(new ItemStack(Items.POTION), AGUA_COCOLMECA.get())
+            ));
         });
     }
 
@@ -81,6 +99,10 @@ public class RootsDelight
     public static final RegistryObject<Item> PANELA = ITEMS.register("panela",
             () -> new Item(new Item.Properties())); // Un ítem simple sin propiedades especiales
 
+    // Registramos el "Agua de Cocolmeca" con efectos (ej: Regeneración y Salto)
+    public static final RegistryObject<Potion> AGUA_COCOLMECA = POTIONS.register("agua_cocolmeca",
+            () -> new Potion(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 600, 0),
+                    new MobEffectInstance(MobEffects.REGENERATION, 600, 0)));
 
     // ========== ÍTEMS BÁSICOS ==========
 
@@ -322,14 +344,19 @@ public class RootsDelight
 
         context.registerConfig(ModConfig.Type.COMMON, com.roots.roots_delight.config.PozolConfig.SPEC, "roots_delight-common.toml");
 
-
-        // Register the commonSetup method for modloading
-        modEventBus.addListener(this::clientSetup);
-
         // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
+
+        POTIONS.register(modEventBus);
+
+        // Register the commonSetup method for modloading
+        modEventBus.addListener(this::commonSetup); // Para lógica y recetas
+
+        modEventBus.addListener(this::clientSetup);
+
+
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 

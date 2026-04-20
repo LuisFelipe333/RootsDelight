@@ -14,5 +14,9 @@
   "item.roots_delight.sinko_peso": "Sinko peso",
   "block.roots_delight.cocolmeca_crop": "Cultivo de Cocolmeca",
   "item.roots_delight.raiz_cocolmeca": "Raíz de Cocolmeca",
-  "item.roots_delight.panela": "Panela"
+  "item.roots_delight.panela": "Panela",
+  "item.minecraft.potion.effect.agua_cocolmeca": "Infusion de Cocolmeca",
+  "item.minecraft.splash_potion.effect.agua_cocolmeca": "Infusion de Cocolmeca Arrojadiza",
+  "item.minecraft.lingering_potion.effect.agua_cocolmeca": "Infusion de Cocolmeca Persistente",
+  "item.minecraft.tipped_arrow.effect.agua_cocolmeca": "Flecha de Infusion de Cocolmeca"
 }

@@ -12,7 +12,11 @@
   "item.roots_delight.pozol_cacao": "Cocoa Pozol",
   "item.roots_delight.cheve": "Cheve",
   "item.roots_delight.sinko_peso": "Faiv peso",
-    "block.roots_delight.cocolmeca_crop": "Cocolmeca Cultivation",
-    "item.roots_delight.raiz_cocolmeca": "Cocolmeca Root",
-    "item.roots_delight.panela": "Panela"
+  "block.roots_delight.cocolmeca_crop": "Cocolmeca Cultivation",
+  "item.roots_delight.raiz_cocolmeca": "Cocolmeca Root",
+  "item.roots_delight.panela": "Panela",
+  "item.minecraft.potion.effect.agua_cocolmeca": "Cocolmeca Infusion",
+  "item.minecraft.splash_potion.effect.agua_cocolmeca": "Splash Cocolmeca Infusion",
+  "item.minecraft.lingering_potion.effect.agua_cocolmeca": "Lingering  Cocolmeca Infusion",
+  "item.minecraft.tipped_arrow.effect.agua_cocolmeca": "Cocolmeca Infusion Arrow"
 }
