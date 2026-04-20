@@ -64,6 +64,9 @@ public class RootsDelight
         });
     }
 
+    // ========== ÍTEMS COCOLMECA ==========
+
+
     // 1. Registro del Bloque (El cultivo)
     // Copiamos las propiedades de las papas de Minecraft (Blocks.POTATOES)
         public static final RegistryObject<Block> COCOLMECA_CROP = BLOCKS.register("cocolmeca_crop",
@@ -74,6 +77,9 @@ public class RootsDelight
     // Al no poner .food(), el objeto NO se podrá comer.
         public static final RegistryObject<Item> RAIZ_COCOLMECA = ITEMS.register("raiz_cocolmeca",
                 () -> new ItemNameBlockItem(COCOLMECA_CROP.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> PANELA = ITEMS.register("panela",
+            () -> new Item(new Item.Properties())); // Un ítem simple sin propiedades especiales
 
 
     // ========== ÍTEMS BÁSICOS ==========
