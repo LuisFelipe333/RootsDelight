@@ -11,5 +11,8 @@
   "item.roots_delight.pozol_blanco": "White Pozol",
   "item.roots_delight.pozol_cacao": "Cocoa Pozol",
   "item.roots_delight.cheve": "Cheve",
-  "item.roots_delight.sinko_peso": "Faiv peso"
+  "item.roots_delight.sinko_peso": "Faiv peso",
+    "block.roots_delight.cocolmeca_crop": "Cocolmeca Cultivation",
+    "item.roots_delight.raiz_cocolmeca": "Cocolmeca Root",
+    "item.roots_delight.panela": "Panela"
 }

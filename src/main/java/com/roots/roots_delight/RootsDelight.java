@@ -303,6 +303,8 @@ public class RootsDelight
                         output.accept(POZOL_BLANCO.get());
                         output.accept(POZOL_CACAO.get());
                         output.accept(CHEVE.get());
+                        output.accept(RAIZ_COCOLMECA.get());
+                        output.accept(PANELA.get());
 
                     })
                     .build());

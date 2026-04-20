@@ -11,5 +11,8 @@
   "item.roots_delight.pozol_blanco": "Pozol Blanco",
   "item.roots_delight.pozol_cacao": "Pozol de Cacao",
   "item.roots_delight.cheve": "Cheve",
-  "item.roots_delight.sinko_peso": "Sinko peso"
+  "item.roots_delight.sinko_peso": "Sinko peso",
+  "block.roots_delight.cocolmeca_crop": "Cultivo de Cocolmeca",
+  "item.roots_delight.raiz_cocolmeca": "Raíz de Cocolmeca",
+  "item.roots_delight.panela": "Panela"
 }
