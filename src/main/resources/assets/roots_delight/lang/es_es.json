@@ -18,5 +18,9 @@
   "item.minecraft.potion.effect.agua_cocolmeca": "Infusion de Cocolmeca",
   "item.minecraft.splash_potion.effect.agua_cocolmeca": "Infusion de Cocolmeca Arrojadiza",
   "item.minecraft.lingering_potion.effect.agua_cocolmeca": "Infusion de Cocolmeca Persistente",
-  "item.minecraft.tipped_arrow.effect.agua_cocolmeca": "Flecha de Infusion de Cocolmeca"
+  "item.minecraft.tipped_arrow.effect.agua_cocolmeca": "Flecha de Infusion de Cocolmeca",
+  "item.minecraft.potion.effect.agua_panela": "Agua de Panela",
+  "item.minecraft.splash_potion.effect.agua_panela": "Agua de Panela Arrojadiza",
+  "item.minecraft.lingering_potion.effect.agua_panela": "Agua de Panela Persistente",
+  "item.minecraft.tipped_arrow.effect.agua_panela": "Flecha de Agua de Panela"
 }

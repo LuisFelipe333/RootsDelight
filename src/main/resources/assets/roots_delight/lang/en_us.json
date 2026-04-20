@@ -18,5 +18,9 @@
   "item.minecraft.potion.effect.agua_cocolmeca": "Cocolmeca Infusion",
   "item.minecraft.splash_potion.effect.agua_cocolmeca": "Splash Cocolmeca Infusion",
   "item.minecraft.lingering_potion.effect.agua_cocolmeca": "Lingering  Cocolmeca Infusion",
-  "item.minecraft.tipped_arrow.effect.agua_cocolmeca": "Cocolmeca Infusion Arrow"
+  "item.minecraft.tipped_arrow.effect.agua_cocolmeca": "Cocolmeca Infusion Arrow",
+  "item.minecraft.potion.effect.agua_panela": "Panela Water",
+  "item.minecraft.splash_potion.effect.agua_panela": "Splash Panela Water",
+  "item.minecraft.lingering_potion.effect.agua_panela": "Lingering Panela Water",
+  "item.minecraft.tipped_arrow.effect.agua_panela": "Panela Water Arrow"
 }

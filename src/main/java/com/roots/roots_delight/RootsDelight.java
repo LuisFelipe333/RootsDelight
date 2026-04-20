@@ -73,12 +73,23 @@ public class RootsDelight
     //Metodo para agregar receta pociones
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            // Registro de la receta: Botella de Agua + Cocolmeca = Agua de Cocolmeca
-            BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(
-                    Potions.WATER,
-                    RAIZ_COCOLMECA.get(),
-                    PotionUtils.setPotion(new ItemStack(Items.POTION), AGUA_COCOLMECA.get())
-            ));
+            // 1. Receta: Botella de Agua + Raíz de Cocolmeca = Agua de Cocolmeca
+            if (RAIZ_COCOLMECA.isPresent() && AGUA_COCOLMECA.isPresent()) {
+                BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(
+                        Potions.WATER,
+                        RAIZ_COCOLMECA.get(),
+                        PotionUtils.setPotion(new ItemStack(Items.POTION), AGUA_COCOLMECA.get())
+                ));
+            }
+
+            // 2. Receta: Botella de Agua + Panela = Agua de Panela
+            if (PANELA.isPresent() && AGUA_PANELA.isPresent()) {
+                BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(
+                        Potions.WATER,
+                        PANELA.get(),
+                        PotionUtils.setPotion(new ItemStack(Items.POTION), AGUA_PANELA.get())
+                ));
+            }
         });
     }
 
@@ -102,7 +113,13 @@ public class RootsDelight
     // Registramos el "Agua de Cocolmeca" con efectos (ej: Regeneración y Salto)
     public static final RegistryObject<Potion> AGUA_COCOLMECA = POTIONS.register("agua_cocolmeca",
             () -> new Potion(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 600, 0),
-                    new MobEffectInstance(MobEffects.REGENERATION, 600, 0)));
+                    new MobEffectInstance(MobEffects.REGENERATION, 400, 0)));
+
+    public static final RegistryObject<Potion> AGUA_PANELA = POTIONS.register("agua_panela",
+            () -> new Potion("agua_panela",
+                    new MobEffectInstance(MobEffects.DIG_SPEED, 1200, 0),      // Aporta Amarillo
+                    new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 0) // Aporta Celeste
+            ));
 
     // ========== ÍTEMS BÁSICOS ==========
 
