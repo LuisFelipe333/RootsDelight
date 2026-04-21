@@ -33,6 +33,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -421,7 +422,7 @@ public class RootsDelight
 
 
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOW)
     public void addCustomTrades(VillagerTradesEvent event) {
         // Lógica de la Raíz de Cocolmeca con el Granjero
         if (event.getType() == VillagerProfession.FARMER) {
