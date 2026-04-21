@@ -15,6 +15,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -45,6 +46,11 @@ import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.item.trading.MerchantOffer;
+import java.util.List;
 
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -137,7 +143,6 @@ public class RootsDelight
     public static final RegistryObject<Item> POZONQUE = ITEMS.register("pozonque",
             () -> new DrinkItem(new Item.Properties()
                     .food(POZONQUE_FOOD)
-                    .craftRemainder(Items.BOWL)
                     .stacksTo(64)));
 
 
@@ -369,10 +374,10 @@ public class RootsDelight
     @SubscribeEvent
     public void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
         ItemStack result = event.getCrafting();
-
+        Player player = event.getEntity();
+        Level level = player.level();
         // Si el jugador acaba de craftear Pozonque
         if (result.is(POZONQUE.get())) {
-            Player player = event.getEntity();
 
             // Creamos 2 botellas de cristal vacías
             ItemStack bottles = new ItemStack(Items.GLASS_BOTTLE, 2);
@@ -382,7 +387,52 @@ public class RootsDelight
                 player.drop(bottles, false);
             }
         }
+
+        // 2. Lógica de la Licra Verde (Pozonque Infinito)
+        if (result.is(POZONQUE_INFINITO.get())) {
+            ItemStack leggings = player.getItemBySlot(EquipmentSlot.LEGS);
+            boolean tieneLicraVerde = false;
+
+            if (leggings.getItem() instanceof DyeableLeatherItem dyeable) {
+                if (dyeable.hasCustomColor(leggings) && dyeable.getColor(leggings) == 0x80C71F) {
+                    tieneLicraVerde = true;
+                }
+            }
+
+            if (!tieneLicraVerde) {
+                // SOLO EN EL SERVIDOR para que el mensaje no salga doble
+                if (!level.isClientSide) {
+                    player.sendSystemMessage(Component.literal("§aEl Pozonque Infinito requiere de la licra verde."));
+
+                    // DEVOLVER LOS ÍTEMS (Para que no se destruyan)
+                    // Le regresamos la Estrella del Nether y el Pozonque al inventario
+                    ItemStack star = new ItemStack(Items.NETHER_STAR);
+                    ItemStack pozonque = new ItemStack(POZONQUE.get());
+
+                    if (!player.addItem(star)) player.drop(star, false);
+                    if (!player.addItem(pozonque)) player.drop(pozonque, false);
+                }
+
+                // Anulamos el resultado para que no se lleve el Infinito
+                result.setCount(0);
+            }
+        }
     }
+
+
+
+    @SubscribeEvent
+    public void addCustomTrades(VillagerTradesEvent event) {
+        // Lógica de la Raíz de Cocolmeca con el Granjero
+        if (event.getType() == VillagerProfession.FARMER) {
+            List<VillagerTrades.ItemListing> trades = event.getTrades().get(1);
+            trades.add((entity, random) -> new MerchantOffer(
+                    new ItemStack(Items.EMERALD, 1),
+                    new ItemStack(RAIZ_COCOLMECA.get(), 2),
+                    10, 5, 0.05f
+            ));
+        }
+    } // <-- AQUÍ TERMINA TRADES
 
 
 
