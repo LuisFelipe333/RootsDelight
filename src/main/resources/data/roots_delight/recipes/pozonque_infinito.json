@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "roots_delight:pozonque" },
+    { "item": "minecraft:nether_star" }
+  ],
+  "result": {
+    "item": "roots_delight:pozonque_infinito"
+  }
+}

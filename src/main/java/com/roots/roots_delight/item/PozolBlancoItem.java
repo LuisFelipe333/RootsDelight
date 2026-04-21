@@ -1,12 +1,15 @@
 package com.roots.roots_delight.item;
 
 import com.roots.roots_delight.config.PozolConfig;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
 import java.util.Random;
@@ -56,5 +59,19 @@ public class PozolBlancoItem extends Item {
         }
     }
 
+    @Override
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.DRINK; // Esto cambia el sonido y la animación a bebida
+    }
+
+    @Override
+    public SoundEvent getDrinkingSound() {
+        return SoundEvents.GENERIC_DRINK; // Sonido al beber
+    }
+
+    @Override
+    public SoundEvent getEatingSound() {
+        return SoundEvents.GENERIC_DRINK; // Sonido por si acaso se activa como comida
+    }
 
 }

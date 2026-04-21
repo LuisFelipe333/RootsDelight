@@ -22,5 +22,7 @@
   "item.minecraft.potion.effect.agua_panela": "Panela Water",
   "item.minecraft.splash_potion.effect.agua_panela": "Splash Panela Water",
   "item.minecraft.lingering_potion.effect.agua_panela": "Lingering Panela Water",
-  "item.minecraft.tipped_arrow.effect.agua_panela": "Panela Water Arrow"
+  "item.minecraft.tipped_arrow.effect.agua_panela": "Panela Water Arrow",
+  "item.roots_delight.pozonque": "Pozonque",
+  "item.roots_delight.pozonque_infinito": "Pozonque Infinito"
 }

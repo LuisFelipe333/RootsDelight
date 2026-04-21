@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "roots_delight:nixtamal" },
+    { "item": "roots_delight:cacao_molido" },
+    { "item": "minecraft:bowl" },
+    {
+      "type": "forge:nbt",
+      "item": "minecraft:potion",
+      "nbt": "{Potion: \"roots_delight:agua_cocolmeca\"}"
+    },
+    {
+      "type": "forge:nbt",
+      "item": "minecraft:potion",
+      "nbt": "{Potion: \"roots_delight:agua_panela\"}"
+    }
+  ],
+  "result": {
+    "item": "roots_delight:pozonque"
+  }
+}

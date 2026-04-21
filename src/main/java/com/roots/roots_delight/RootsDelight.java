@@ -15,6 +15,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
@@ -22,6 +23,7 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -121,6 +123,50 @@ public class RootsDelight
                     new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 0) // Aporta Celeste
             ));
 
+    // 1. Definir los efectos: 5 de comida, Regeneración y Velocidad por 1 min (1200 ticks)
+    public static final FoodProperties POZONQUE_FOOD = new FoodProperties.Builder()
+            .nutrition(10)
+            .saturationMod(0.6f)
+            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 2400, 0), 1.0f)
+            .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 2400, 0), 1.0f)
+            .alwaysEat()
+            .build();
+
+    // 2. Registrar el Pozonque
+// Usamos .craftRemainder(Items.BOWL) para que al terminar de comerlo te de el cuenco
+    public static final RegistryObject<Item> POZONQUE = ITEMS.register("pozonque",
+            () -> new DrinkItem(new Item.Properties()
+                    .food(POZONQUE_FOOD)
+                    .craftRemainder(Items.BOWL)
+                    .stacksTo(64)));
+
+
+    // 1. Usamos las mismas propiedades de comida del Pozonque normal
+    public static final RegistryObject<Item> POZONQUE_INFINITO = ITEMS.register("pozonque_infinito",
+            () -> new DrinkItem(new Item.Properties()
+                    .food(POZONQUE_FOOD)
+                    .stacksTo(1) // Es vital que sea 1 para evitar bugs de duplicación
+                    .rarity(Rarity.EPIC)) {
+
+                @Override
+                public boolean isFoil(ItemStack stack) {
+                    return true; // El brillo de "Libro Encantado"
+                }
+
+                @Override
+                public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
+                    // 1. Aplicamos los efectos de hambre y efectos de estado (Regen y Velocidad)
+                    if (this.isEdible()) {
+                        entity.eat(level, stack.copy());
+                    }
+
+                    // 2. IMPORTANTE: No llamamos a super.finishUsingItem()
+                    // Simplemente devolvemos el stack original sin tocarlo.
+                    // Esto hace que el número de ítems no baje de 1.
+                    return stack;
+                }
+            });
+
     // ========== ÍTEMS BÁSICOS ==========
 
     public static final RegistryObject<Item> CACAO_TOSTADO = ITEMS.register(
@@ -172,59 +218,6 @@ public class RootsDelight
             RECIPE_SERIALIZERS.register("no_remainder_shapeless", NoRemainderShapelessSerializer::new);
 
 
-
-
-
-//    //========== EFECTOS COMIDA ==========
-//    private static final FoodProperties POZOL_BLANCO_FOOD = new FoodProperties.Builder()
-//            .nutrition(5)               // 5 muslitos
-//            .saturationMod(0.6f)
-//            // 60 segundos = 60 * 20 ticks = 1200
-//
-//            // Visión nocturna 20%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.NIGHT_VISION, 1200, 0),
-//                    0.20f
-//            )
-//            // Salto I 20%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.JUMP, 1200, 0),
-//                    0.20f
-//            )
-//            // Resistencia al fuego 20%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1200, 0),
-//                    0.20f
-//            )
-//            // Velocidad I 20%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 0),
-//                    0.20f
-//            )
-//            // Curación instantánea I 20% (duración cortita, es instantánea de todos modos)
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.HEAL, 1, 0),
-//                    0.20f
-//            )
-//            // Regeneración I 20%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.REGENERATION, 1200, 0),
-//                    0.20f
-//            )
-//            // Fuerza I 20%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 0),
-//                    0.20f
-//            )
-//            // Prisa minera I 20%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.DIG_SPEED, 1200, 0),
-//                    0.20f
-//            )
-//            .alwaysEat()
-//
-//            .build();
-
     public static final FoodProperties POZOL_BLANCO_FOOD = new FoodProperties.Builder()
             .nutrition(5)
             .saturationMod(0.6f)
@@ -236,55 +229,6 @@ public class RootsDelight
             .saturationMod(0.6f)
             .alwaysEat()
             .build();
-
-
-//    // Pozol de cacao: 5 de comida, 1 minuto, efectos en nivel II con 15% cada uno
-//    private static final FoodProperties POZOL_CACAO_FOOD = new FoodProperties.Builder()
-//            .nutrition(5)
-//            .saturationMod(0.6f)
-//
-//            // Salto II 15%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.JUMP, 1200, 1),
-//                    0.15f
-//            )
-//            // Resistencia al fuego 15%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1200, 0),
-//                    0.15f
-//            )
-//            // Velocidad II 15%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1200, 1),
-//                    0.15f
-//            )
-//            // Curación instantánea II 15%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.HEAL, 1, 1),
-//                    0.15f
-//            )
-//            // Regeneración II 15%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.REGENERATION, 1200, 1),
-//                    0.15f
-//            )
-//            // Fuerza II 15%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200, 1),
-//                    0.15f
-//            )
-//            // Caída lenta 15%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.SLOW_FALLING, 1200, 0),
-//                    0.15f
-//            )
-//            // Prisa minera II 15%
-//            .effect(
-//                    () -> new MobEffectInstance(MobEffects.DIG_SPEED, 1200, 1),
-//                    0.15f
-//            )
-//            .alwaysEat()
-//            .build();
 
 
     // ========== COMIDAS ==========
@@ -344,6 +288,12 @@ public class RootsDelight
                         output.accept(CHEVE.get());
                         output.accept(RAIZ_COCOLMECA.get());
                         output.accept(PANELA.get());
+                        output.accept(POZONQUE.get());
+                        output.accept(POZONQUE_INFINITO.get());
+
+                        //Se usa forma diferente para pocioens
+                        output.accept(PotionUtils.setPotion(new ItemStack(Items.POTION), AGUA_COCOLMECA.get()));
+                        output.accept(PotionUtils.setPotion(new ItemStack(Items.POTION), AGUA_PANELA.get()));
 
                     })
                     .build());
@@ -412,6 +362,24 @@ public class RootsDelight
             if (!player.addItem(buckets)) {
                 // Si no caben, las tiramos al suelo
                 player.drop(buckets, false);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
+        ItemStack result = event.getCrafting();
+
+        // Si el jugador acaba de craftear Pozonque
+        if (result.is(POZONQUE.get())) {
+            Player player = event.getEntity();
+
+            // Creamos 2 botellas de cristal vacías
+            ItemStack bottles = new ItemStack(Items.GLASS_BOTTLE, 2);
+
+            // Se las damos al jugador (o las tiramos al suelo si no hay espacio)
+            if (!player.addItem(bottles)) {
+                player.drop(bottles, false);
             }
         }
     }
